@@ -14,7 +14,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<AddEntry alreadyLogged={true}/>
+				<AddEntry />
 				{/* <Slider 
 					minimumValue={-10}
 					maximumValue={10}
