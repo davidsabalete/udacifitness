@@ -160,6 +160,6 @@ export function calculateDirection(heading) {
 
 export function getDailyReminderValue() {
     return {
-        today: String.fromCodePoint(0x1F984) + " Don't forget to log your data today!"
+        today: "Don't forget to log your data today!"
     }
 }
