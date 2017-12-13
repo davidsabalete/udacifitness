@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { receiveEntries, addEntry } from '../actions'
@@ -10,12 +10,10 @@ import DateHeader from './DateHeader'
 import MetricCard from './MetricCard'
 import { AppLoading } from 'expo'
 
-class History extends React.Component {
-
+class History extends Component {
     state = {
-        ready: false
+        ready: false,
     }
-
     componentDidMount() {
         const { dispatch } = this.props
 
@@ -28,45 +26,43 @@ class History extends React.Component {
                     }))
                 }
             })
-            .then(() => this.setState(() => ({
-                ready: true
-            })))
+            .then(() => this.setState(() => ({ ready: true })))
     }
-
     renderItem = ({ today, ...metrics }, formattedDate, key) => (
         <View style={styles.item}>
-            {today ?
-                <View>
+            {today
+                ? <View>
                     <DateHeader date={formattedDate} />
                     <Text style={styles.noDataText}>
                         {today}
                     </Text>
                 </View>
-                :
-                <TouchableOpacity onPress={() => console.log('Pressed!')}>
-                    <MetricCard metrics={metrics} date={formattedDate} />
-                </TouchableOpacity>
-            }
+                : <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate(
+                        'EntryDetail',
+                        { entryId: key }
+                    )}
+                >
+                    <MetricCard date={formattedDate} metrics={metrics} />
+                </TouchableOpacity>}
         </View>
     )
-
-    renderEmptyDate = (formattedDate) => (
-        <View style={styles.item}>
-            <DateHeader date={formattedDate}/>
-            <Text style={styles.noDataText}>
-                You didn't log any data on this day.
-            </Text>
-        </View>
-    )
-
+    renderEmptyDate(formattedDate) {
+        return (
+            <View style={styles.item}>
+                <DateHeader date={formattedDate} />
+                <Text style={styles.noDataText}>
+                    You didn't log any data on this day.
+        </Text>
+            </View>
+        )
+    }
     render() {
         const { entries } = this.props
         const { ready } = this.state
-
         if (ready === false) {
             return <AppLoading />
         }
-
         return (
             <UdaciFitnessCalendar
                 items={entries}
@@ -76,8 +72,6 @@ class History extends React.Component {
         )
     }
 }
-
-
 const styles = StyleSheet.create({
     item: {
         backgroundColor: white,
@@ -89,11 +83,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         shadowRadius: 3,
         shadowOpacity: 0.8,
-        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowColor: 'rgba(0, 0, 0, 0.24)',
         shadowOffset: {
             width: 0,
             height: 3
-        }
+        },
     },
     noDataText: {
         fontSize: 20,
@@ -101,6 +95,11 @@ const styles = StyleSheet.create({
         paddingBottom: 20
     }
 })
-
-const mapStateToProps = (entries) => ({ entries })
-export default connect(mapStateToProps)(History)
+function mapStateToProps(entries) {
+    return {
+        entries
+    }
+}
+export default connect(
+    mapStateToProps,
+)(History)

@@ -17,7 +17,7 @@ export default function MetricCard({ date, metrics }) {
                         {getIcon()}
                         <View>
                             <Text style={{ fontSize: 20 }}>
-                                {displayName()}
+                                {displayName}
                             </Text>
                             <Text style={{ fontSize: 16, color: gray}}>
                                 {metrics[metric]} {unit}

@@ -1,14 +1,12 @@
-// utils/helpers.js
 import React from 'react'
-import { View, StyleSheet, Platform } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { FontAwesome, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons'
-import { red, orange, blue, lightPurp, pink, white, black } from './colors'
+import { red, orange, blue, lightPurp, pink, white } from './colors'
 
-
-export function timeToString(time = Date.now()) {
-    const date = new Date(time)
-    const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
-    return todayUTC.toISOString().split('T')[0]
+export function getDailyReminderValue() {
+    return {
+        today: "👋 Don't forget to log your data today!"
+    }
 }
 
 const styles = StyleSheet.create({
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 20
-    }
+    },
 })
 
 export function getMetricMetaInfo(metric) {
@@ -33,7 +31,7 @@ export function getMetricMetaInfo(metric) {
             type: 'steppers',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, {backgroundColor: red}]}>
+                    <View style={[styles.iconContainer, { backgroundColor: red }]}>
                         <MaterialIcons
                             name='directions-run'
                             color={white}
@@ -51,7 +49,7 @@ export function getMetricMetaInfo(metric) {
             type: 'steppers',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, {backgroundColor: orange}]}>
+                    <View style={[styles.iconContainer, { backgroundColor: orange }]}>
                         <MaterialCommunityIcons
                             name='bike'
                             color={white}
@@ -69,7 +67,7 @@ export function getMetricMetaInfo(metric) {
             type: 'steppers',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, {backgroundColor: blue}]}>
+                    <View style={[styles.iconContainer, { backgroundColor: blue }]}>
                         <MaterialCommunityIcons
                             name='swim'
                             color={white}
@@ -87,7 +85,7 @@ export function getMetricMetaInfo(metric) {
             type: 'slider',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, {backgroundColor: lightPurp}]}>
+                    <View style={[styles.iconContainer, { backgroundColor: lightPurp }]}>
                         <FontAwesome
                             name='bed'
                             color={white}
@@ -105,7 +103,7 @@ export function getMetricMetaInfo(metric) {
             type: 'slider',
             getIcon() {
                 return (
-                    <View style={[styles.iconContainer, {backgroundColor: pink}]}>
+                    <View style={[styles.iconContainer, { backgroundColor: pink }]}>
                         <MaterialCommunityIcons
                             name='food'
                             color={white}
@@ -121,6 +119,7 @@ export function getMetricMetaInfo(metric) {
         ? info
         : info[metric]
 }
+
 
 export function isBetween(num, x, y) {
     if (num >= x && num <= y) {
@@ -158,8 +157,8 @@ export function calculateDirection(heading) {
     return direction
 }
 
-export function getDailyReminderValue() {
-    return {
-        today: "Don't forget to log your data today!"
-    }
+export function timeToString(time = Date.now()) {
+    const date = new Date(time)
+    const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+    return todayUTC.toISOString().split('T')[0]
 }
