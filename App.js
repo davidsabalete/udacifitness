@@ -5,6 +5,7 @@ import History from './components/History'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers'
+import { TabNavigator, StackNavigator, DrawerNavigator } from 'react-navigation'
 
 
 export default class App extends React.Component {
