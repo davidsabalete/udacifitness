@@ -40,4 +40,4 @@ class Live extends Component {
     }
 }
 
-export default React
+export default Live
